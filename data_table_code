@@ -1,0 +1,43 @@
+import sys
+from PyQt6 import uic
+from PyQt6.QtWidgets import QWidget, QApplication, QTableWidgetItem, QHeaderView
+
+
+class DataTableCode(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('data_table.ui', self)
+        self.show()
+        self.insert_data_into_table()
+    
+    def insert_data_into_table(self):
+        self.data_table.verticalHeader().setVisible(False)
+
+        header = self.data_table.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
+
+        for index in range(10):
+            name = f"Name {index}"
+            mobile = f"Mobile {index}"
+            email = f"email-{index}@banglafighter.com"
+
+            self.data_table.insertRow(index)
+            self.data_table.setItem(index, 0, QTableWidgetItem(f"{index}"))
+            self.data_table.setItem(index, 1, QTableWidgetItem(name))
+            self.data_table.setItem(index, 2, QTableWidgetItem(mobile))
+            self.data_table.setItem(index, 3, QTableWidgetItem(email))
+            self.data_table.update()
+
+    
+
+def run():
+    app = QApplication(sys.argv)
+    ui_app = DataTableCode()
+    sys.exit(app.exec())
+
+
+run()
